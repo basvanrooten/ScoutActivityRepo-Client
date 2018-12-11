@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { Comp } from '../models/Comp';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,12 @@ export class APIService {
 
   readonly url =  "https://scoutingactivityrepo-dev.herokuapp.com/api/"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private auth: AuthenticationService, private httpClient: HttpClient) { }
 
   getAllComponents(): Observable<Comp[]> {
 
     let headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhc3ZhbnJvb3RlbkBtZS5jb20iLCJpYXQiOjE1NDQzNjE1MDUsImV4cCI6MTU0Njk1MzUwNX0.HZTqjwRgKkI5VDu3mi8zKs7S2vKTz76RqGXiv2ZWKDA' 
+      'Authorization': 'Bearer ' + this.auth.getToken() 
     });
     let params = new HttpParams();
 

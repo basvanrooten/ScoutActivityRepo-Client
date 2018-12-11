@@ -6,26 +6,32 @@ import { AppComponent } from './app.component';
 
 import { AppBootstrapModule } from './modules/app-bootstrap/app-bootstrap.module';
 import { HeaderComponent } from './components/header/header.component';
-import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { ComponentListComponent } from './components/component-list/component-list.component';
+
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationService } from './services/authentication.service';
+import { FormsModule } from '@angular/forms';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AuthComponent,
     LoginComponent,
-    ComponentListComponent
+    ComponentListComponent,
+    HomePageComponent,
+    RegisterComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     AppBootstrapModule,
     HttpClientModule
   ],
-  providers: [ HttpClientModule ],
+  providers: [ HttpClientModule, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
