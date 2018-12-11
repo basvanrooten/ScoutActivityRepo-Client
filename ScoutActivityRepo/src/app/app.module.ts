@@ -7,22 +7,22 @@ import { AppComponent } from './app.component';
 import { AppBootstrapModule } from './modules/app-bootstrap/app-bootstrap.module';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/auth/login/login.component';
-import { ComponentListComponent } from './components/component-list/component-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { ComponentsComponent } from './components/components/components.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    ComponentListComponent,
     HomePageComponent,
-    RegisterComponent
+    RegisterComponent,
+    ComponentsComponent
   ],
   imports: [
     FormsModule,

@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { Comp } from '../models/Comp';
 import { AuthenticationService } from './authentication.service';
+import config from '../config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIService {
-
-  readonly url =  "https://scoutingactivityrepo-dev.herokuapp.com/api/"
 
   constructor(private auth: AuthenticationService, private httpClient: HttpClient) { }
 
@@ -21,7 +20,7 @@ export class APIService {
     });
     let params = new HttpParams();
 
-    return this.httpClient.get<any>(this.url+ 'component/', {headers: headers, params: params} )
+    return this.httpClient.get<any>(config.apiUrl + '/component', {headers: headers, params: params} )
       .pipe(
           map(result => {
             let components: Comp[] = [];

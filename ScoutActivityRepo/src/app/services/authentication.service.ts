@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import config from '../config.json';
 
 // Interfaces for type checking
 export interface UserDetails {
@@ -88,7 +89,7 @@ export class AuthenticationService {
 
   public register(user: RegisterPayload): Observable<any> {
 
-    let base = this.http.post('http://localhost:3000/api/register', user);
+    let base = this.http.post(config.apiUrl + '/register', user);
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {
@@ -102,7 +103,7 @@ export class AuthenticationService {
   }
   
   public login(user: LoginPayload): Observable<any> {
-    let base = this.http.post('http://localhost:3000/api/login', user);
+    let base = this.http.post(config.apiUrl + '/login', user);
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {
