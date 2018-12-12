@@ -1,0 +1,27 @@
+<div class="col d-flex justify-content-center">
+  <div class="card" style="width: 24rem; margin-top: 6rem;">
+    <div class="card-body">
+      <h2 class="card-title">Inloggen</h2>
+      <p class="card-text">Voer uw gegevens in om verder te gaan</p>
+
+      <div *ngIf="showError" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form (submit)="login()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="voorbeeld@avans.nl" [(ngModel)]="credentials.email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Wachtwoord</label>
+          <input type="password" class="form-control" name="password" placeholder="Wachtwoord" [(ngModel)]="credentials.password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Inloggen</button>
+      </form>
+    </div>
+  </div>
+</div>

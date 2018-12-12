@@ -1,0 +1,4 @@
+.scroll {
+    max-height: 700px !important;
+    overflow-y: scroll;
+}
