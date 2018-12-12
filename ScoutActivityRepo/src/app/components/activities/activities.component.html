@@ -1,0 +1,109 @@
+<app-header></app-header>
+<div class="container-fluid mb-3">
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          Beschikbare opkomsten
+        </div>
+        <ul class="list-group list-group-flush">
+          <div class="scroll">
+            <li *ngIf="loading" class="list-group-item">Bezig met laden. Een ogenblik geduld.</li>
+            <li *ngFor="let activity of activities;" class="list-group-item list-group-item-action" (click)="onSelect(activity)">{{activity?.name}}</li>
+          </div>
+        </ul>
+        <div class="card-body border-top">
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/activities/new">Nieuwe opkomst toevoegen</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+
+      <div *ngIf="showError" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div *ngIf="showNotification" class="alert alert-primary alert-dismissible fade show" role="alert">
+        {{notification}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div *ngIf="selectedActivity == null">
+        <h4>Geen opkomst geselecteerd.</h4>
+        <p>Selecteer een opkomst in het linkermenu</p>
+      </div>
+
+      <div *ngIf="selectedActivity != null">
+
+        <div class="row">
+          <div class="col-11">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/activities">Opkomsten</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{selectedActivity?.name}}</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-1">
+            <div class="btn-toolbar float-right" role="toolbar">
+              <div class="btn-group btn-group-lg" role="group">
+                <button type="button" class="btn btn-primary" [routerLink]="['/activities/edit/', selectedActivity?._id]"><i
+                    class="far fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" (click)="deleteActivity(selectedActivity)"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td style="width: 16.66%">Naam</td>
+              <td>{{selectedActivity?.name}}</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Datum</td>
+              <td>{{selectedActivity?.date | date:'longDate'}}</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Expressiegebied</td>
+              <td>{{selectedActivity?.expressionField}}</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Auteur</td>
+              <td>{{selectedActivity?.author}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card">
+          <div class="card-header">
+            Activiteiten in {{selectedActivity?.name}}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf="selectedActivityComponents.length == 0">Opkomst
+              bevat geen onderdelen</li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let component of selectedActivityComponents">
+              {{component.name}}
+              <a (click)="deleteComponentFromActivity(selectedActivity?._id, component?._id)" class="badge badge-danger text-white"><i
+                  class="fas fa-times"></i></a>
+            </li>
+          </ul>
+
+          <div class="card-footer text-muted">
+            Gemaakt op: {{selectedActivity?.createdAt | date:'longDate'}} <br>
+            Laatst bewerkt op {{selectedActivity?.updatedAt | date:'longDate'}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>

@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 })
 export class ComponentsNewComponent implements OnInit {
 
-  previewTextBool: boolean = false;
-  previewText: string = '';
-
   public options: Object = {
     placeholderText: 'Voer hier de uitwerking in',
     charCounterCount: false,

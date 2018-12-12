@@ -10,7 +10,7 @@
         <ul class="list-group list-group-flush">
           <div class="scroll">
             <li *ngIf="loading" class="list-group-item">Bezig met laden. Een ogenblik geduld.</li>
-            <li *ngFor="let component of components; let i = index" class="list-group-item list-group-item-action"
+            <li *ngFor="let component of components;" class="list-group-item list-group-item-action"
               (click)="onSelect(component)">{{component?.name}}</li>
           </div>
         </ul>

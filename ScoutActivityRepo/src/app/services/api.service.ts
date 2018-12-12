@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Comp } from '../models/Comp';
 import { AuthenticationService } from './authentication.service';
 import config from '../config.json';
+import { Activity } from '../models/Activity';
 
 
   // Interfaces for API Calls
@@ -17,6 +18,13 @@ import config from '../config.json';
     componentText: string;
   }
 
+  export interface ActivityObject {
+    name: string,
+    date: Date,
+    author: string,
+    expressionField: string;
+  }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +34,8 @@ export class APIService {
 
   constructor(private auth: AuthenticationService, private httpClient: HttpClient) { }
 
+
+  // COMPONENT CRUD
   getAllComponents(): Observable<Comp[]> {
 
     let headers = new HttpHeaders({
@@ -82,14 +92,88 @@ export class APIService {
     return res;
   }
 
-  editComponent(componentID: string, component: Comp): Observable<any> {
+  editComponent(componentId: string, component: Comp): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + this.auth.getToken() 
     });
 
-    var res = this.httpClient.put(config.apiUrl + '/component/' + componentID, component, {headers: headers});
+    var res = this.httpClient.put(config.apiUrl + '/component/' + componentId, component, {headers: headers});
     return res;
 
   }
 
+  // ACTIVITY CRUD
+  getAllActivities(): Observable<Activity[]> {
+
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+
+    return this.httpClient.get<any>(config.apiUrl + '/activity', {headers: headers} )
+      .pipe(
+          map(result => {
+            let activities: Activity[] = [];
+            result.forEach(res => {
+              let activity = new Activity(
+                res._id,
+                res.name,
+                res.date,
+                res.expressionField,
+                res.author,
+                res.components,
+                res.createdAt,
+                res.updatedAt
+              )
+              activities.push(activity)
+            })
+            return activities;
+          })
+      )
+  }
+
+  getActivityByID(activityId: string): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+
+    var res = this.httpClient.get(config.apiUrl + '/activity/' + activityId, {headers: headers});
+    return res;
+  }
+
+  postActivity(newActivity: ActivityObject): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+    
+    var res = this.httpClient.post(config.apiUrl + '/activity', newActivity, {headers: headers});
+    return res;
+  }
+
+  deleteComponentFromActivityByID(activityId: string, componentId: string): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+
+    var res = this.httpClient.delete(config.apiUrl + '/activity/' + activityId + '/component/' + componentId, {headers: headers});
+    return res;
+  }
+
+  deleteActivity(activity: Activity): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+
+    var res = this.httpClient.delete(config.apiUrl + '/activity/' + activity._id, {headers: headers});
+    return res;
+  }
+
+  editActivity(activityId: string, activity: Activity): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+
+    var res = this.httpClient.put(config.apiUrl + '/activity/' + activityId, activity, {headers: headers});
+    return res;
+
+  }
 }

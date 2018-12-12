@@ -19,6 +19,9 @@ import { ComponentsComponent } from './components/components/components.componen
 import { ComponentsNewComponent } from './components/components-new/components-new.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ComponentsEditComponent } from './components/components-edit/components-edit.component';
+import { ActivitiesComponent } from './components/activities/activities.component';
+import { ActivitiesNewComponent } from './components/activities-new/activities-new.component';
+import { ActivitiesEditComponent } from './components/activities-edit/activities-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { ComponentsEditComponent } from './components/components-edit/components
     RegisterComponent,
     ComponentsComponent,
     ComponentsNewComponent,
-    ComponentsEditComponent
+    ComponentsEditComponent,
+    ActivitiesComponent,
+    ActivitiesNewComponent,
+    ActivitiesEditComponent
   ],
   imports: [
     FormsModule,
