@@ -12,6 +12,8 @@ export class ComponentsComponent implements OnInit {
   constructor(private api : APIService) { }
 
   components: Comp[] = [];
+  loading: boolean = true;
+  selectedComponent: Comp;
   selectedIndex: number;
 
   ngOnInit() {
@@ -19,8 +21,15 @@ export class ComponentsComponent implements OnInit {
     // Get all components
     this.api.getAllComponents().subscribe(res => {
       this.components = res;
+      this.loading = false;
+
     });
 
   }
+
+  onSelect(component: Comp) {
+    this.selectedComponent = component;
+  }
+
 
 }

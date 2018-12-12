@@ -5,12 +5,14 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ComponentsComponent } from './components/components/components.component';
+import { ComponentsNewComponent } from './components/components-new/components-new.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuardService]},
   {path: 'components', component: ComponentsComponent, canActivate: [AuthGuardService]},
+  {path: 'components/new', component: ComponentsNewComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

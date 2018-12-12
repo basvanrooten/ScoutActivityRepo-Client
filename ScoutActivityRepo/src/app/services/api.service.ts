@@ -6,10 +6,23 @@ import { Comp } from '../models/Comp';
 import { AuthenticationService } from './authentication.service';
 import config from '../config.json';
 
+
+  // Interfaces for API Calls
+  // ComponentObject
+  export interface ComponentObject {
+    name: string,
+    expressionField: string,
+    duration: string,
+    budget: string,
+    componentText: string;
+  }
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class APIService {
+
 
   constructor(private auth: AuthenticationService, private httpClient: HttpClient) { }
 
@@ -38,5 +51,14 @@ export class APIService {
             return components;
           })
       )
+  }
+
+  postComponent(newComponent: ComponentObject): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.auth.getToken() 
+    });
+    
+    var res = this.httpClient.post(config.apiUrl + '/component', newComponent, {headers: headers});
+    return res;
   }
 }

@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ComponentsComponent } from './components/components/components.component';
+import { ComponentsNewComponent } from './components/components-new/components-new.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,17 @@ import { ComponentsComponent } from './components/components/components.componen
     LoginComponent,
     HomePageComponent,
     RegisterComponent,
-    ComponentsComponent
+    ComponentsComponent,
+    ComponentsNewComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     AppBootstrapModule,
-    HttpClientModule
+    HttpClientModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [ HttpClientModule, AuthenticationService],
   bootstrap: [AppComponent]

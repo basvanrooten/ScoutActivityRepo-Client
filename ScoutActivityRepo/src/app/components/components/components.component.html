@@ -3,15 +3,81 @@
 <div class="container-fluid">
   <div class="row mt-3">
     <div class="col-md-3">
-      <ul class="list-group">
-          <li class="list-group-item list-group-item-primary">Beschikbare activiteiten</li>
-        <li *ngFor="let component of components; let i = index" class="list-group-item list-group-item-action">{{component.name}}</li>
-      </ul>
+      <div class="card">
+        <div class="card-header">
+          Beschikbare activiteiten
+        </div>
+        <ul class="list-group list-group-flush">
+          <div class="scroll">
+            <li *ngIf="loading" class="list-group-item">Bezig met laden. Een ogenblik geduld.</li>
+            <li *ngFor="let component of components; let i = index" class="list-group-item list-group-item-action"
+              (click)="onSelect(component)">{{component?.name}}</li>
+          </div>
+        </ul>
+        <div class="card-body border-top">
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/components/new">Nieuwe activiteit toevoegen</button>
+        </div>
+      </div>
     </div>
+    
     <div class="col-md-9">
-      <p>Lorem ipsum dolor sit amet, congue assueverit philosophia nec eu, ea est offendit adolescens definiebas. Vel
-        et purto exerci aliquid. Vis ad soleat possim, vix cu cibo summo vituperata. Te nullam quodsi incorrupte pri,
-        qui option utroque ut. Vix legendos persecuti argumentum ad, te vidit natum sed. Cu vis soleat maiorum
-        abhorreant. Qui wisi maiorum oporteat cu, ne ius expetendis vituperatoribus, at his dolor discere erroribus.</p>
+      <div *ngIf="selectedComponent != null">
+
+        <div class="row">
+          <div class="col-11">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/components">Activiteit</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{selectedComponent?.name}}</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-1">
+            <div class="btn-toolbar float-right" role="toolbar">
+              <div class="btn-group btn-group-lg" role="group">
+                <button type="button" class="btn btn-primary"><i class="far fa-edit"></i></button>
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td style="width: 16.66%">Naam</td>
+              <td>{{selectedComponent?.name}}</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Expressiegebied</td>
+              <td>{{selectedComponent?.expressionField}}</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Duur</td>
+              <td>{{selectedComponent?.duration}} minuten</td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Budget</td>
+              <td>{{ selectedComponent?.budget | currency:'EUR' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card">
+          <div class="card-body">
+            <div [innerHTML]="selectedComponent?.componentText">
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div *ngIf="selectedComponent == null">
+        <h4>Geen activiteit geselecteerd.</h4>
+        <p>Selecteer een activiteit in het linkermenu</p>
+      </div>
     </div>
   </div>
