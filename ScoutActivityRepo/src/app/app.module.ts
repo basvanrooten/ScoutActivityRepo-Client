@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { AppBootstrapModule } from './modules/app-bootstrap/app-bootstrap.module';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { registerLocaleData } from '@angular/common';
+import localeNl from '@angular/common/locales/nl';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
@@ -16,6 +18,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { ComponentsComponent } from './components/components/components.component';
 import { ComponentsNewComponent } from './components/components-new/components-new.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { ComponentsEditComponent } from './components/components-edit/components-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     HomePageComponent,
     RegisterComponent,
     ComponentsComponent,
-    ComponentsNewComponent
+    ComponentsNewComponent,
+    ComponentsEditComponent
   ],
   imports: [
     FormsModule,
@@ -36,7 +40,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot()
   ],
-  providers: [ HttpClientModule, AuthenticationService],
+  providers: [ HttpClientModule, AuthenticationService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+registerLocaleData(localeNl, 'nl')

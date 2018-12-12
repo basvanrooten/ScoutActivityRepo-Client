@@ -5,6 +5,8 @@ export class Comp {
         public expressionField: string,
         public duration: number,
         public budget: number,
-        public componentText: string
+        public componentText: string,
+        public createdAt: string = undefined,
+        public updatedAt: string = undefined
     ){}
 }

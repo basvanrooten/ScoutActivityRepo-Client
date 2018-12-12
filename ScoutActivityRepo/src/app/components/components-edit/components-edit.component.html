@@ -1,0 +1,72 @@
+<app-header></app-header>
+
+<div class="container mt-3">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/components">Activiteit</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{selectedComponent.name}}</li>
+    </ol>
+  </nav>
+
+  <h1>Activiteit aanpassen</h1>
+  <p class="lead">Voer onderstaand formulier in om de bestaande activiteit aan te passen</p>
+
+  <div *ngIf="showError" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{error}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+  <form (submit)="editComponent()">
+    <div class="row">
+      <div class="col">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td style="width: 16.66%">Naam</td>
+              <td><input class="form-control" type="text" name="name" placeholder="Activiteitnaam" [(ngModel)]="selectedComponent.name" required></td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Expressiegebied</td>
+              <td><input class="form-control" type="text" name="expressionField" placeholder="Expressiegebied" required [(ngModel)]="selectedComponent.expressionField"></td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Duur</td>
+              <td>
+                <div class="input-group mb-2">
+                  <input class="form-control" type="number" name="duration" placeholder="Duur in minuten" required [(ngModel)]="selectedComponent.duration">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">minuten</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 16.66%">Budget</td>
+              <td>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">&euro;</div>
+                  </div>
+                  <input class="form-control" type="number" name="duration" placeholder="Bedrag in hele euro's" required [(ngModel)]="selectedComponent.budget">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">,00</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <textarea [froalaEditor]='options' [(froalaModel)]="selectedComponent.componentText"></textarea>
+
+        <div class="card mt-3">
+          <div class="card-body">
+            <input type="submit" class="btn btn-primary" value="Verstuur">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { AuthGuardService } from './services/auth-guard.service';
 import { ComponentsComponent } from './components/components/components.component';
 import { ComponentsNewComponent } from './components/components-new/components-new.component';
+import { ComponentsEditComponent } from './components/components-edit/components-edit.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuardService]},
   {path: 'components', component: ComponentsComponent, canActivate: [AuthGuardService]},
   {path: 'components/new', component: ComponentsNewComponent, canActivate: [AuthGuardService]},
+  {path: 'components/edit/:componentId', component: ComponentsEditComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentObject, APIService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import {assert} from 'assert';
 
 @Component({
   selector: 'app-components-new',
@@ -39,8 +38,6 @@ export class ComponentsNewComponent implements OnInit {
   }
 
   sendComponent() {
-
-
     this.api.postComponent(this.newComponent).subscribe(result => {
       console.log(result);
       this.router.navigateByUrl('components');
@@ -51,5 +48,4 @@ export class ComponentsNewComponent implements OnInit {
 
     })
   }
-
 }
